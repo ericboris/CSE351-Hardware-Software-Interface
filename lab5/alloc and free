@@ -1,0 +1,72 @@
+// malloc is given a size in bytes and returns a pointer to an address in memory that can // store that payload. 
+
+void* mm_malloc(size_t size) {
+// initialize the variables that will be needed
+// the size required for the payload in memory including header and alignment
+size_t reqSize;
+
+// the pointer to the free block in memory
+BlockInfo * ptrFreeBlock = NULL;
+
+// if the payload is negative or zero 
+// then return null
+if (size == 0) {
+  return NULL;
+}
+
+// the required size needs to account for the size of the header too
+size += WORD_SIZE;
+
+// if the payload is less than the minimum byte size
+// then allocate the minimum ammount of space
+// don't forget to round up the required size to adjust for alignment
+if (size <= MIN_BLOCK_SIZE) {
+ reqSize = MIN_BLOCK_SIZE
+} else {
+  reqSize = ALIGNMENT * ((size + ALIGNMENT - 1) / ALIGNMENT);
+}
+
+// find an available free space
+// if there isn't enough free space
+// then ask that more be allocated
+if ((ptrFreeBlock = searchFreeList(reqSize)) == NULL) {
+  requestMoreSpace(reqSize);
+}
+
+// remove the free space to be allocated from the list of free spaces
+removeFreeBlock(ptrFreeBlock);
+
+// if the chosen block of memory is larger than the requested size
+// then split the space in memory and insert the remaining freespace
+// into the freespace list
+if ((GET_SIZE(ptrFreeBlock) - reqSize) >= MIN_BLOCK_SIZE) {
+  // have to assign this new block in the freespace list
+  // will need the size and free tag of this block
+  // will need to set the next and prev pointers for the freelist
+  // will need the footer tag info
+  BlockInfo * extraFreeBlock = 
+} 
+
+// allocate the space in memory
+
+// return a pointer to the start of the payload
+}
+
+
+free()
+
+free is given a pointer to a location in memory and reintegrates that space back into the list of available free spaces
+
+get the size of the block to be freed and it's offset
+
+insert the block into the list of free spaces
+
+free the block by overwriting the payload with next, prev, and footer information
+point next to the next free space in the freespace list and prev to the previous
+fill in the footer with information about the size of the block
+
+try to coalesce
+
+
+
+

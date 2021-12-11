@@ -1,0 +1,46 @@
+*********************
+* Lab 1a Reflection *
+*********************
+Name: Eric Boris
+ID:   eboris91
+
+
+-----------------------------------------------------------
+1) Use/Benefit:
+Honestly, I don't immediately  see why it's especially
+useful/beneficial. I searched the web and found some 
+esoteric seeming edge cases where it's better for array
+traversal or making a particular algorithm more elegant, 
+but overall the general consensus seems to be that bracket
+notation is clearer and more widely applicable. That said,
+I'd think that it may be faster, clearer, or more direct
+when working at a low level. 
+
+-----------------------------------------------------------
+2) Steps:
+There are a few distinct steps. 
+1. Have the starting address. You need something to work
+with.
+2. Calculate the ending address by using pointer
+arithmetic. This is done by adding 1 to the pointer and
+by pointer arithemetic that 1 is the width of the pointer 
+type in bytes. 
+3. Take the difference between the start and ending 
+address to determine how many bytes the addition of 
+one added to the pointer address. It is important during
+this step to cast the pointers to unsigned long because
+failure to do so leaves the compiler to decide that you
+want the difference between the typed pointers which 
+evaluates to one instead of the integer difference which
+is the size of the address in bytes.
+
+-----------------------------------------------------------
+3) Explain:
+If they were integers they would be lost at the end of the 
+function without using a return statement. Assuming there 
+was a return statement though and the parameters were int,
+we see that we would need to do some assignments when we
+call it in selectionSort. This would not only add overhead
+but would be less elegant than a pointer swap.
+
+-----------------------------------------------------------

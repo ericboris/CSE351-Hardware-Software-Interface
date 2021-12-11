@@ -1,0 +1,62 @@
+*********************
+* Lab 1b Reflection *
+*********************
+Name: Eric Boris
+ID:   eboris91
+
+
+-----------------------------------------------------------
+1) Operator: Operator? bitAnd gave me some pause. Function?
+Invert.
+  
+Explain: The first problem took me longer than it should 
+have because it was the first in the lab and it took me 
+awhile to get into the mind state to work on these. But, 
+out of all the functions, invert took me the longest. Not
+because it was difficult, per se, but because the example
+uses the same value for p and n so I was using them 
+swapped from where they should've been. This led to hours
+and hours of trying different (correct) ways to get it 
+to work, simply because I was using the arguments swapped
+from where they should've been. 
+
+That said, my function for invert begins by creating a
+mask to use to flip the bits that we want to invert. I 
+accomplish this creation by filling an int with all 1s and
+shifting them to the left up to position p. Then we can
+flip the values and shift left again this time up to
+position n. This leaves us with a mask of the form,
+[0011 1100] where n = 5 and p is 2. We can xor mask
+this and the input x to flip only the bits where the mask
+is 1. 
+
+This provides a simple way to create a mask with zeros 
+and ones in the right places and, with a single check,
+flips only the bits we wanted to flip.
+
+-----------------------------------------------------------
+2) First line: Create a mask from x by shifting the MSB 
+to the right by 31 bits. This has the effect of filling
+the int with 1s or 0s depending on whether it was positive
+or negative.
+ 
+Second line: The first have of the return statement uses
+the new mask to flip every value in x if x is negative
+or leaves it the same if it was positive.  
+
+Third line: The second half of the return negates the mask. 
+Similar to -n = (~n + 1)
+
+Overall function: This function has the effect of taking
+the absolute value of x. 
+    
+-----------------------------------------------------------
+3) Explain: Yes, they're different. If they're compared as
+floats the comparison results in zero but if they're
+cast as ints then the comparison equates to 1. This has to
+do with how the values are interpreted even though the byte
+representations are equivalent. 
+
+
+
+-----------------------------------------------------------

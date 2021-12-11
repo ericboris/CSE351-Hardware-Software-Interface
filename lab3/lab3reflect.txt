@@ -1,0 +1,22 @@
+********************
+* Lab 3 Reflection *
+********************
+Name: Eric Boris	 
+ID:   1976637
+
+-----------------------------------------------------------
+1) Explain: The return address get corrupted and that causes the Segmentation fault at 0x400b43 <main+219> leaveq. Providing an array size that is larger than the actual size of the array results in insufficient buffer space being dedicated in memory and causes the indexing to continue out of bounds, overwriting the return value. 
+
+-----------------------------------------------------------
+2) Instruction 1: <part2+1> mov %rsp, %rbp 
+
+   Instruction 2: <part2+18> lea -0x30(%rbp), %rax
+   
+   Purpose: These two instructions allocate the space in memory for the array and a buffer. Unfortunately, they only allocate the space for 40 bytes, an int array of 10 elements, plus 8 more for the buffer. Because we pass in 13 as the size of the array, we tell the array loop to continue for 52 bytes and into the return address which is why the return address is corrupted. 
+
+   Minimum length to cause a seg fault: 13
+   
+-----------------------------------------------------------
+3) Explain: Yes, because the heap is dynamically allocated, creating the array there would limit the occurence of segmentation faults because more space could be allocated should the need arise. 
+
+-----------------------------------------------------------

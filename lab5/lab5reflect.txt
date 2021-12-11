@@ -1,0 +1,19 @@
+********************
+* Lab 5 Reflection *
+********************
+Name: Eric Boris
+ID:   1976637
+
+
+-----------------------------------------------------------
+1) Alignment: 16B
+			  
+-----------------------------------------------------------
+2) Boundary Tag Size:  8B
+   Reasoning: Upon allocating a block of 24B, one where all the padding is filled, we see that the next address begins 32B away. The remaining space between the blocks must be the boundary tag size, i.e. 32B-24B=8B.
+
+-----------------------------------------------------------
+3) Footer?  
+   Explain: There doesn't seem to be a footer for allocated blocks. Filling the allocated block with a character and searching for that character between the 24th and 31st bytes yields nothing, indicating that there is no footer. 
+
+------------------------------------------------------------
